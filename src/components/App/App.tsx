@@ -13,20 +13,25 @@ export default function App() {
     bad: 0,
   });
 
-  const [isResetBtn, setResetBtn] = useState<boolean>(false);
+  let isResetBtn = false
 
   const handleVote = (type: VoteType) => {
     setVotes({
       ...votes,
       [type]: votes[type] + 1,
     });
-    setResetBtn(true);
   };
 
   let totalVotes: number = Object.values(votes).reduce(
     (acc, current) => acc + current,
     0
   );
+
+  if(totalVotes > 0) {
+
+   isResetBtn = true
+
+  }
 
   let rateVotes: number = totalVotes
     ? Math.round((votes.good / totalVotes) * 100)
@@ -38,7 +43,6 @@ export default function App() {
       neutral: 0,
       bad: 0,
     });
-    setResetBtn(false);
   };
 
   return (
